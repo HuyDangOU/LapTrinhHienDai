@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import cloudinary
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -37,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ecourseapi.apps.CourseConfig',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'rest_framework',
+    'drf_yasg',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +129,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = '%s/ecourseapi/static/' % BASE_DIR
 AUTH_USER_MODEL = 'ecourseapi.USER'
 CKEDITOR_UPLOAD_PATH = "ckeditor/image"
+
+#cloudinary
+
+cloudinary.config(
+  cloud_name = "ddgtjayoj",
+  api_key = "451466636224894",
+  api_secret = "8jP48b2XeCzhNdKNe9yGIwiDiN8",
+  secure = True
+)

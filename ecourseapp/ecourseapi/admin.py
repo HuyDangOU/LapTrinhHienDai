@@ -1,17 +1,32 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
-
-from .models import Category, Course, Lesson
+from django.utils.html import mark_safe
 
 
-class LessonAdmin(admin.ModelAdmin):
+from django import forms
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-    list_display = [ 'subject', 'created_date', 'course', "active"]
-    readonly_fields = ['this_image']
-    def this_image(self, lesson):
-        if lesson.image:
-            return mark_safe(f'<img "src=/static/{lesson.image.name}" width ="120"/>')
+from ecourseapi.models import Course, Category
+
+
+class CourseForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorUploadingWidget)
+
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
+class MyCourseAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'created_date', 'updated_date', 'active']
+    search_fields = ['id', 'name']
+    list_filter = ['created_date', 'name']
+    readonly_fields = ['my_image']
+    form = CourseForm
+
+    def my_image(self, course):
+        if course.image:
+            return mark_safe(f"<img src='/static/{course.image.name}' width='200' />")
+
 
 admin.site.register(Category)
-admin.site.register(Course)
-admin.site.register(Lesson, LessonAdmin)
+admin.site.register(Course, MyCourseAdmin)
