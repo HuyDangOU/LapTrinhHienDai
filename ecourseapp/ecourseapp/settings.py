@@ -42,8 +42,15 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'rest_framework',
     'drf_yasg',
-    'cloudinary'
+    'cloudinary',
+    'oauth2_provider'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,11 +137,11 @@ MEDIA_ROOT = '%s/ecourseapi/static/' % BASE_DIR
 AUTH_USER_MODEL = 'ecourseapi.USER'
 CKEDITOR_UPLOAD_PATH = "ckeditor/image"
 
-#cloudinary
+# cloudinary
 
 cloudinary.config(
-  cloud_name = "ddgtjayoj",
-  api_key = "451466636224894",
-  api_secret = "8jP48b2XeCzhNdKNe9yGIwiDiN8",
-  secure = True
+    cloud_name="ddgtjayoj",
+    api_key="451466636224894",
+    api_secret="8jP48b2XeCzhNdKNe9yGIwiDiN8",
+    secure=True
 )

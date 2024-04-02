@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ecourseapi.models import Course, Category, Lesson, User, Tag
+from ecourseapi.models import Course, Category, Lesson, User, Tag, Comment
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -43,3 +43,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'first_name', 'last_name',"avatar" ]
+
+
+
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user  = UserSerializer()
+    lesson = LessonSerializer()
+    class Meta:
+        model = Comment
+        fields = ['id', 'content', 'lesson', 'user']
